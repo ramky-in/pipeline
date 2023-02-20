@@ -1,0 +1,26 @@
+/bin/
+/test/
+
+# Eclipse-related stuff:
+.project
+.cproject
+/.settings
+/Debug
+/Release
+
+# goland IDE stuff:
+/.idea
+
+# Vim temporary files
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+
+# Mac specific files
+.DS_Store
+
+# MS VSCode
+.vscode/
+
+# Folder for Jenkins scripts and Makefile.build
+/build
+/.ddi.build
