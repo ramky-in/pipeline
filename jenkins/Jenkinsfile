@@ -8,6 +8,27 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
+		try {
+                        build([
+                              job: 'BUILD_TEST',
+                              wait: false,
+                              parameters: [
+                                    string(name: 'PR_ID', value: env.ghprbPullId),
+                                    string(name: 'TARGET_BRANCH', value: env.ghprbTargetBranch),
+                                    string(name: 'REPO_URL', value: prParams.gitOptions.gitUrl),
+                                    string(name: 'ACTUAL_COMMIT', value: params.sha1)
+                              ]
+                        ])
+                    }
+                    catch(Exception ex) {
+                        echo "Failed to trigger NSTAR_INTEGRATION_TEST job(${ex.getMessage()}). Setting error status on integration-tests context."
+                        github.setStatus([
+                            gitOptions: prParams.gitOptions,
+                            context: 'integration-tests',
+                            description: 'Failed to trigger test job',
+                            state: 'error'
+                        ])
+                    }
             }
         }
     }
