@@ -12,6 +12,7 @@ pipeline {
                 '''
                 echo "Test ${env.ghprbPullId}"
                 echo "Test ${env.ghprbTargetBranch}"
+                echo "Test ${currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')}"
             }
         }
     }
